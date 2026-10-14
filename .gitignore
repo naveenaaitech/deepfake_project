@@ -1,6 +1,15 @@
+# Large AI model weights
+*.safetensors
+
+# Uploaded and test videos
+media/videos/
+
+# Python environment and cache
 venv/
-.venv/
 __pycache__/
-*.py[cod]
+*.pyc
+
+# Environment secrets
 .env
-media/
+*.safetensors
+media/videos/
