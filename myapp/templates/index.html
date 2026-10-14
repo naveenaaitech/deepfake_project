@@ -1,0 +1,584 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="description" content="SPECULUM — Media Authenticity Intelligence. Examine audio and video for signs of AI-generated or manipulated content with ethical, transparent forensic reporting.">
+  <title>SPECULUM — Media Authenticity Intelligence</title>
+  
+  <!-- Typography: Google Fonts (Editorial Serif + Modern Clean Sans + Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Django Static CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!-- Hidden CSRF Token for JavaScript / Fetch requests -->
+  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+  <!-- Header / Navigation Bar -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="24" height="24" rx="4" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M14 3V25" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2"/>
+            <circle cx="9" cy="14" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="14" r="4.5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="1.5 1.5"/>
+            <path d="M7 7L21 21" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="logo-title">SPECULUM</span>
+          <span class="logo-subtitle">MEDIA AUTHENTICITY INTELLIGENCE</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="system-status-pill" id="systemStatusPill" title="Backend connection status">
+          <span class="status-dot connected" id="systemStatusDot"></span>
+          <span class="status-text" id="systemStatusText">Django Backend Ready</span>
+        </div>
+
+        <!-- Working Dark / Light Theme Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark and light theme" title="Toggle theme (Light / Dark)">
+          <span class="theme-icon light-icon" aria-hidden="true">
+            <!-- Sun Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="12" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon dark-icon" aria-hidden="true">
+            <!-- Moon Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-label" id="themeLabel">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" id="mainContent">
+    <div class="content-wrapper">
+      
+      <!-- HERO SECTION -->
+      <section class="hero-section" id="heroSection" aria-labelledby="heroHeading">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">FORENSIC MEDIA VERIFICATION</span>
+          <span class="eyebrow-line"></span>
+        </div>
+        <h1 class="hero-heading" id="heroHeading">Can You Trust What You See and Hear?</h1>
+        <p class="hero-description">
+          Examine audio and video for signs of AI-generated or manipulated content. SPECULUM applies multi-layered forensic inspection to analyze synthetic speech, facial reenactment, deepfake artifacts, and temporal inconsistencies.
+        </p>
+        <div class="hero-attributes">
+          <span class="hero-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Deterministic Validation
+          </span>
+          <span class="hero-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Bi-Modal Spectral Analysis
+          </span>
+          <span class="hero-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Zero Synthetic Mock Verdicts
+          </span>
+        </div>
+      </section>
+
+      <!-- MAIN FORENSIC WORKBENCH GRID -->
+      <div class="workbench-grid">
+        
+        <!-- LEFT COLUMN: INTAKE & DETECTOR TELEMETRY -->
+        <div class="workbench-primary">
+
+          <!-- 3. UPLOAD AREA -->
+          <section class="card upload-card" id="uploadSection" aria-labelledby="uploadHeading">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-step-num">01</span>
+                <div>
+                  <h2 class="card-title" id="uploadHeading">Media Intake Laboratory</h2>
+                  <p class="card-subtitle">Supply a single authentic or suspect media asset for forensic inspection.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Drag and Drop Zone -->
+            <div class="drop-zone" id="dropZone" tabindex="0" role="region" aria-label="Media file drag and drop zone">
+              <input type="file" id="fileInput" class="file-input" accept=".mp4,.mov,.avi,.webm,.wav,.mp3,.m4a,.aac" aria-hidden="true">
+              
+              <div class="drop-zone-content" id="dropZoneContent">
+                <div class="drop-zone-icon" aria-hidden="true">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="1" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <div class="drop-zone-prompt">
+                  <p class="drop-title">Drag & drop suspect media here</p>
+                  <p class="drop-or">or</p>
+                  <button type="button" class="btn btn-secondary" id="browseBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Browse Local Files
+                  </button>
+                </div>
+                <div class="supported-formats-pills">
+                  <div class="format-category">
+                    <span class="format-badge-label">Video:</span>
+                    <span class="format-pill">MP4</span>
+                    <span class="format-pill">MOV</span>
+                    <span class="format-pill">AVI</span>
+                    <span class="format-pill">WEBM</span>
+                  </div>
+                  <div class="format-divider" aria-hidden="true">•</div>
+                  <div class="format-category">
+                    <span class="format-badge-label">Audio:</span>
+                    <span class="format-pill">WAV</span>
+                    <span class="format-pill">MP3</span>
+                    <span class="format-pill">M4A</span>
+                    <span class="format-pill">AAC</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Selected File Preview Container -->
+              <div class="selected-file-card hidden" id="selectedFileCard">
+                <div class="file-info-col">
+                  <div class="file-icon-wrapper" id="fileIconWrapper" aria-hidden="true">
+                    <!-- Icon dynamically injected by JS (audio or video) -->
+                  </div>
+                  <div class="file-details">
+                    <span class="file-name" id="fileNameDisplay" title="Filename">sample.mp4</span>
+                    <div class="file-meta">
+                      <span class="file-type-badge" id="fileTypeBadge">Video (MP4)</span>
+                      <span class="meta-dot" aria-hidden="true">•</span>
+                      <span class="file-size-text" id="fileSizeDisplay">14.2 MB</span>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn-icon remove-file-btn" id="removeFileBtn" title="Remove selected file" aria-label="Remove selected file">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Error Banner for Unsupported Files or Mismatches -->
+            <div class="error-banner hidden" id="errorBanner" role="alert">
+              <div class="error-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div class="error-message-content">
+                <strong class="error-title" id="errorTitle">Unsupported File Format</strong>
+                <p class="error-text" id="errorMessage">Please upload one of the supported media containers.</p>
+              </div>
+              <button type="button" class="error-dismiss-btn" id="dismissErrorBtn" aria-label="Dismiss error notification">
+                &times;
+              </button>
+            </div>
+
+            <!-- Analysis Action Buttons -->
+            <div class="actions-panel">
+              <div class="actions-helper">
+                Select the targeted forensic pipeline suited to your media container:
+              </div>
+              <div class="action-buttons-group">
+                <button type="button" class="btn btn-primary btn-forest" id="analyzeVideoBtn" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                  </svg>
+                  <span>Analyze Video</span>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-forest" id="analyzeAudioBtn" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                  <span>Analyze Audio</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. DETECTOR STATUS -->
+          <section class="card detectors-card" id="detectorStatusSection" aria-labelledby="detectorStatusHeading">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-step-num">02</span>
+                <div>
+                  <h2 class="card-title" id="detectorStatusHeading">Detector Model Nodes</h2>
+                  <p class="card-subtitle">Real-time health status of local or remote forensic inference models.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detector-cards-grid">
+              
+              <!-- Video Deepfake Detector Card -->
+              <div class="detector-card" id="videoDetectorCard">
+                <div class="detector-header">
+                  <div class="detector-type">
+                    <div class="detector-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5 5-5 5V10z"/><rect x="2" y="4" width="13" height="16" rx="2"/></svg>
+                    </div>
+                    <div>
+                      <h3 class="detector-name">Video Deepfake Detector</h3>
+                      <span class="detector-pipeline">Temporal Artifacts & Face Synthesis</span>
+                    </div>
+                  </div>
+                  <div class="status-badge status-online" id="videoDetectorBadge">
+                    <span class="badge-dot"></span>
+                    <span>Ready</span>
+                  </div>
+                </div>
+
+                <div class="detector-telemetry">
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Endpoint Target:</span>
+                    <span class="telemetry-val mono" id="videoDetectorEndpoint">/api/videos/upload/</span>
+                  </div>
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Model Engine:</span>
+                    <span class="telemetry-val mono">Django + OpenCV</span>
+                  </div>
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Backend Pipeline:</span>
+                    <span class="telemetry-val mono">Active</span>
+                  </div>
+                </div>
+                <div class="detector-footer-note">
+                  Integrated with Django REST API pipeline at <code>/api/videos/</code>.
+                </div>
+              </div>
+
+              <!-- Audio Spoof Detector Card -->
+              <div class="detector-card" id="audioDetectorCard">
+                <div class="detector-header">
+                  <div class="detector-type">
+                    <div class="detector-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <div>
+                      <h3 class="detector-name">Audio Spoof Detector</h3>
+                      <span class="detector-pipeline">Spectral Vocoder & Voice Clone Detection</span>
+                    </div>
+                  </div>
+                  <div class="status-badge status-online" id="audioDetectorBadge">
+                    <span class="badge-dot"></span>
+                    <span>Ready</span>
+                  </div>
+                </div>
+
+                <div class="detector-telemetry">
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Endpoint Target:</span>
+                    <span class="telemetry-val mono" id="audioDetectorEndpoint">/api/videos/upload/</span>
+                  </div>
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Model Pipeline:</span>
+                    <span class="telemetry-val mono">Spectral Analysis</span>
+                  </div>
+                  <div class="telemetry-row">
+                    <span class="telemetry-label">Inference Status:</span>
+                    <span class="telemetry-val mono">Ready</span>
+                  </div>
+                </div>
+                <div class="detector-footer-note">
+                  Audio pipeline ready for forensic frequency extraction.
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN: RESULTS & TELEMETRY -->
+        <div class="workbench-secondary">
+
+          <!-- 5. ANALYSIS RESULTS -->
+          <section class="card results-card" id="resultsSection" aria-labelledby="resultsHeading">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-step-num">03</span>
+                <div>
+                  <h2 class="card-title" id="resultsHeading">Forensic Analysis Results</h2>
+                  <p class="card-subtitle">Exhaustive telemetry from the actual verification model.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- RESULT PANEL CONTAINER -->
+            <div class="result-panel" id="resultPanel">
+              
+              <!-- State: Loading / In-Progress (hidden by default) -->
+              <div class="result-state-view hidden" id="resultLoadingState">
+                <div class="spinner-editorial"></div>
+                <h3 class="state-title">Awaiting Model Inference...</h3>
+                <p class="state-desc" id="loadingStateDesc">Sending media stream to forensic analysis pipeline.</p>
+              </div>
+
+              <!-- State: Default Idle State -->
+              <div class="result-state-view" id="resultDisconnectedState">
+                <div class="disconnected-notice-box">
+                  <div class="disconnected-badge">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Pipeline Ready</span>
+                  </div>
+                  <h3 class="notice-headline">Awaiting Media Intake</h3>
+                  <p class="notice-body">
+                    Upload a video or audio asset in the intake panel to initiate forensic verification and neural deepfake classification.
+                  </p>
+                  <div class="notice-integrity-callout">
+                    <strong>Integrity Guarantee:</strong> SPECULUM strictly displays authentic results directly from the backend model without synthetic mock verdicts.
+                  </div>
+                </div>
+
+                <!-- Structured Results Slot Structure -->
+                <div class="result-breakdown-slots">
+                  <div class="breakdown-item">
+                    <span class="item-label">File Name</span>
+                    <span class="item-value mono" id="resultFileName">No file analyzed</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="item-label">Analysis Status</span>
+                    <span class="item-value" id="resultAnalysisStatus">
+                      <span class="tag-status tag-standby">Awaiting media</span>
+                    </span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="item-label">Model Classification</span>
+                    <span class="item-value" id="resultClassification">
+                      <span class="tag-status tag-unverified">Pending</span>
+                    </span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="item-label">Model Confidence</span>
+                    <span class="item-value mono" id="resultConfidence">—</span>
+                  </div>
+                  <div class="breakdown-item full-width">
+                    <span class="item-label">Forensic Explanation</span>
+                    <div class="item-explanation-box" id="resultExplanation">
+                      Results and confidence scores computed by the Django backend API will appear here upon inspection completion.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- State: Model Connected Success (Shown when genuine backend data exists) -->
+              <div class="result-state-view hidden" id="resultConnectedState">
+                <!-- Dynamically filled with genuine backend response -->
+              </div>
+
+            </div>
+          </section>
+
+          <!-- 6. SESSION STATISTICS -->
+          <section class="card stats-card" id="statsSection" aria-labelledby="statsHeading">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-step-num">04</span>
+                <div>
+                  <h2 class="card-title" id="statsHeading">Session Statistics</h2>
+                  <p class="card-subtitle">Aggregated only from genuine analysis completions in this session.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-metric-grid">
+              
+              <div class="stat-card">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="stat-data">
+                  <span class="stat-value" id="statReviewedCount">0</span>
+                  <span class="stat-label">Reviewed Files</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon icon-authentic" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <div class="stat-data">
+                  <span class="stat-value" id="statAuthenticCount">0</span>
+                  <span class="stat-label">Likely Authentic</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon icon-manipulated" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="stat-data">
+                  <span class="stat-value" id="statManipulatedCount">0</span>
+                  <span class="stat-label">Likely Manipulated</span>
+                </div>
+              </div>
+
+            </div>
+            
+            <div class="stats-footer-text">
+              Initialized to zero. Counters advance strictly upon verified model conclusions.
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+
+      <!-- 7. RECENT REPORTS SECTION -->
+      <section class="card reports-card" id="reportsSection" aria-labelledby="reportsHeading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-step-num">05</span>
+            <div>
+              <h2 class="card-title" id="reportsHeading">Recent Inspection Reports</h2>
+              <p class="card-subtitle">Audit logs and verifiable media certifications from this workstation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State (Displayed until actual analysis reports exist) -->
+        <div class="reports-empty-state" id="reportsEmptyState">
+          <div class="empty-state-illustration" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <circle cx="11" cy="14" r="3"></circle>
+              <line x1="13.5" y1="16.5" x2="16" y2="19"></line>
+            </svg>
+          </div>
+          <h3 class="empty-state-title">No Forensic Reports Recorded Yet</h3>
+          <p class="empty-state-text">
+            Audit logs are fetched directly from your Django database (<code>/api/videos/history/</code>). As soon as media undergoes analysis, completed reports appear here.
+          </p>
+          <div class="empty-state-tag">Audit Trail: Ready for First Analysis</div>
+        </div>
+
+        <!-- Reports Table Container (Populated dynamically when reports exist) -->
+        <div class="reports-table-container hidden" id="reportsTableContainer">
+          <table class="reports-table" id="reportsTable">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Timestamp</th>
+                <th scope="col">Asset Name</th>
+                <th scope="col">Model Classification</th>
+                <th scope="col">Confidence</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="reportsTableBody">
+              <!-- Dynamically populated from /api/videos/history/ -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. RESPONSIBLE AI SECTION -->
+      <section class="card responsible-ai-card" id="responsibleAiSection" aria-labelledby="responsibleAiHeading">
+        <div class="responsible-ai-inner">
+          <div class="responsible-ai-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="responsible-ai-content">
+            <div class="responsible-eyebrow">ETHICAL FORENSIC PROTOCOL</div>
+            <h2 class="responsible-title" id="responsibleAiHeading">Responsible AI & Verification Principles</h2>
+            <div class="responsible-text">
+              <p>
+                <strong>Automated detection can make mistakes.</strong> Deepfake detection and audio spoof classifiers operate on statistical likelihoods, pattern heuristics, and probabilistic neural networks. They are susceptible to both <em>false positives</em> (labeling authentic media as synthetic) and <em>false negatives</em> (failing to identify sophisticated manipulations).
+              </p>
+              <p>
+                Environmental factors—such as re-encoding artifacts, low-light video capture, aggressive audio compression (e.g., WhatsApp or social media recompression), and non-native accents—can degrade detector accuracy.
+              </p>
+              <p class="highlight-caution">
+                <strong>Crucial Guidance:</strong> Results generated by SPECULUM or any AI forensic tool should never be treated as definitive legal proof or indisputable truth. Always combine automated indicators with human editorial scrutiny, source provenance tracking, metadata verification, and multi-source corroboration before publishing or drawing critical conclusions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEVELOPER QUICKSTART / BACKEND HOOK INFO -->
+      <section class="backend-guide-drawer" id="backendGuide">
+        <div class="guide-header">
+          <div class="guide-title-wrap">
+            <span class="guide-tag">DJANGO REST FRAMEWORK</span>
+            <h3 class="guide-title">Django Backend Integration</h3>
+          </div>
+          <button type="button" class="btn-toggle-guide" id="toggleGuideBtn" aria-expanded="false" aria-controls="guideBody">
+            <span id="guideToggleText">View API Endpoints</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="guideArrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <div class="guide-body hidden" id="guideBody">
+          <p class="guide-desc">
+            This template is wired to your Django backend in <code>myapp</code>. The following REST API endpoints are active:
+          </p>
+          <pre class="code-preview"><code>// Django REST Endpoints in myapp.urls:
+POST /api/videos/upload/         -> VideoUploadAPIView (Accepts multipart video)
+POST /api/videos/start/{id}/     -> StartAnalysisAPIView (Initiate processing)
+GET  /api/videos/result/{id}/    -> VideoResultAPIView (Poll detection status)
+GET  /api/videos/history/        -> VideoHistoryAPIView (Audit history)
+POST /api/videos/save-result/{id}/ -> save_detection_result (Save classification)</code></pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">SPECULUM</span>
+        <span class="footer-tagline">Open Intelligence for Media Forensics</span>
+      </div>
+      <div class="footer-center">
+        <span>Designed for Transparency & Journalistic Integrity</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-version">Django 6.1 • v1.0.0-hackathon</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link Vanilla JS with Django Static Tag -->
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
